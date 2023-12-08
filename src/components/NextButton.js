@@ -1,22 +1,26 @@
-export default function NextButton({
-  onNextQuestion,
-  onFinish,
-  answer,
-  index,
-  count,
-}) {
+import { useQuiz } from "../contexts/QuizContext"
+
+export default function NextButton() {
+  const { answer, index, numQuestions, dispatch } = useQuiz()
+
   if (answer === null) return null
 
-  if (index < count - 1)
+  if (index < numQuestions - 1)
     return (
-      <button className="btn btn-ui" onClick={onNextQuestion}>
+      <button
+        className="btn btn-ui"
+        onClick={() => dispatch({ type: "nextQuestion" })}
+      >
         NEXT
       </button>
     )
-  console.log(index, count)
-  if (index === count - 1)
+  console.log(index, numQuestions)
+  if (index === numQuestions - 1)
     return (
-      <button className="btn btn-ui" onClick={onFinish}>
+      <button
+        className="btn btn-ui"
+        onClick={() => dispatch({ type: "finish" })}
+      >
         FINISH
       </button>
     )
